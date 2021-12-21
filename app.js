@@ -4,20 +4,24 @@ const app = Vue.createApp({
   //data
   data() {
     return {
+      showBook: true,
       bookTitle: "Harry Potter",
     };
   },
   methods: {
-    changeTitle() {
+    changeTitle(event, bookName) {
+      console.log("🚀 ~ file: app.js ~ line 13 ~ changeTitle ~ event", event);
       let tempTitle;
       //   let titles = ["Harry Potter", "New Title"];
 
-      tempTitle = "New Title";
+      // tempTitle = "New Title";
 
-      this.bookTitle = tempTitle;
+      // this.bookTitle = tempTitle;
+      this.bookTitle = bookName;
     },
-    logger(value) {
-      console.log("🚀 ~ file: app.js ~ line 20 ~ logger ~ value", value);
+    toggleShowBook() {
+      let tempShowBook = this.showBook;
+      this.showBook = !tempShowBook;
     },
   },
 });
