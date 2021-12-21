@@ -6,9 +6,9 @@
         <input
           type="checkbox"
           name="taskFinished"
-          id="index"
-          @input="toggleTaskFinishHandler(index)"
-          checked="task.isFinished === true"
+          :id="index"
+          :checked="task.isFinished"
+          @click="toggleTaskFinishHandler(index)"
         />
         <p>{{ task.taskTitle }}</p>
       </li>
@@ -21,7 +21,7 @@ export default {
   props: ["taskList"],
   methods: {
     toggleTaskFinishHandler(id) {
-      this.$emit("finish-task", id);
+      this.$emit("FinishTask", id);
     },
   },
 };
