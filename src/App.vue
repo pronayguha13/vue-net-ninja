@@ -9,7 +9,7 @@
   />
   <TaskList
     v-bind:taskList="taskList"
-    @FinishTask="(id) => finishTaskHandler(id)"
+    @finishTask="(id) => finishTaskHandler(id)"
   />
   <Modal
     v-if="showModal"
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Header from "@/components/Header";
 import TaskInput from "@/components/TaskInput";
 import TaskList from "@/components/TaskList.vue";
@@ -47,31 +48,40 @@ export default {
   },
   methods: {
     createTaskHandler(newTask) {
-      console.log(`taskList:>>`, this.taskList);
       let tempTaskList = this.taskList;
 
       tempTaskList.unshift(newTask);
 
       this.taskList = tempTaskList;
+      this.openModal(
+        "success",
+        "ToDo created successfully",
+        "We have added one more task to the list"
+      );
     },
 
     finishTaskHandler(id) {
       const task = this.taskList[id];
-      let isFinishedStatus = !task.isFinished;
-
-      task.isFinished = isFinishedStatus;
+      let prevStatus = task.completed;
+      task.completed = !prevStatus;
 
       this.taskList[id] = task;
+      if (!prevStatus) {
+        this.openModal(
+          "success",
+          "ToDo completed",
+          "Well done you have finished one more task"
+        );
+      } else {
+        this.openModal("warning", "ToDo Unchecked", "Task added back again");
+      }
     },
 
     openModal(status, title, content) {
-      this.modalTitle === title;
+      this.modalTitle = title;
       this.modalContent = content;
       this.status = status;
       this.showModal = true;
-      setTimeout(() => {
-        this.closeModal();
-      }, 1000);
     },
 
     closeModal() {
@@ -80,6 +90,28 @@ export default {
       this.status = "";
       this.showModal = false;
     },
+
+    async fetchPosts() {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/todos"
+        );
+        console.log(
+          "🚀 ~ file: TaskList.vue ~ line 37 ~ fetchPosts ~ response",
+          response.data
+        );
+        this.taskList = response.data;
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: TaskList.vue ~ line 43 ~ fetchPosts ~ error",
+          error
+        );
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchPosts();
   },
 };
 </script>

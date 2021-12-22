@@ -3,6 +3,7 @@
     <input
       type="text"
       @input="onChangeHandler"
+      @keydown="onKeyDownHandler"
       :value="this.task.taskTitle"
       ref="title"
     />
@@ -17,9 +18,9 @@ export default {
   data() {
     return {
       task: {
-        taskTitle: "",
+        title: "",
         created_at: new Date(),
-        isFinished: false,
+        completed: false,
       },
     };
   },
@@ -28,6 +29,13 @@ export default {
     onChangeHandler(event) {
       let newTitle = event.target.value;
       this.task.taskTitle = newTitle;
+    },
+    onKeyDownHandler(event) {
+      const keyPressed = event.key;
+
+      if (keyPressed === "Enter") {
+        this.createTaskButtonClickHandler();
+      }
     },
 
     createTaskButtonClickHandler() {
