@@ -1,7 +1,7 @@
 <template>
   <Header />
   <h1>My First Vue app</h1>
-  <TaskInput
+  <!-- <TaskInput
     @CreateTask="createTaskHandler"
     @TaskCreationFailed="
       (status, title, content) => openModal(status, title, content)
@@ -17,7 +17,8 @@
     :status="status"
     :content="modalContent"
     @close="closeModal"
-  />
+  /> -->
+  <router-view></router-view>
 </template>
 
 <script>
