@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AllTasks from "@/Views/AllTasks";
-import ToDo from "@/Views/ToDo.vue";
+import AllTasks from "@/views/AllTasks";
+import ToDo from "@/views/ToDo.vue";
 
 const routes = [
   {
-    path: "/todos",
-    name: "ToDos",
-    components: AllTasks,
+    path: "/",
+    name: "AllTasks",
+    component: AllTasks,
   },
   {
     path: "/todo/:id",
     name: "ToDo",
-    components: ToDo,
+    component: ToDo,
   },
   //   {
   //     name: "Home",

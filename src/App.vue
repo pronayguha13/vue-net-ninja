@@ -18,7 +18,7 @@
     :content="modalContent"
     @close="closeModal"
   /> -->
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
